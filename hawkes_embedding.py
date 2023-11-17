@@ -3,6 +3,7 @@ from helper import *
 from point_process import PointProcess
 from hawkes_simple import HawkesSimple
 
+_EPS = 1e-6
 
 class HawkesEmbedding(HawkesSimple):
     """
