@@ -1,6 +1,7 @@
 from __future__ import division
 from bisect import bisect
-import cPickle
+# import cPickle
+import pickle
 import igraph as ig
 import itertools as it
 from math import floor, ceil
@@ -23,7 +24,8 @@ from operator import itemgetter
 from scipy.sparse import coo_matrix
 from scipy.stats import chi2_contingency, probplot
 from scipy.stats import gamma as gamma_dist
-from scipy.misc import logsumexp
+# from scipy.misc import logsumexp
+from scipy.special import logsumexp
 # from scipy.special import gamma as Gamma
 from scipy.optimize import minimize, minimize_scalar, check_grad
 from scipy.optimize import rosen, rosen_der
