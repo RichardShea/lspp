@@ -493,7 +493,7 @@ class HawkesEmbedding(HawkesSimple):
 
             def callback_fun(x):
                 global _Nfeval
-                print _Nfeval, x, neg_loglik_obj(x)
+                print(_Nfeval, x, neg_loglik_obj(x))
                 # print "{0:4d} {1: 3.6f}".format(_Nfeval, neg_loglik_obj(x))
                 _Nfeval += 1
 
@@ -528,8 +528,8 @@ class HawkesEmbedding(HawkesSimple):
                                method='L-BFGS-B', bounds=bounds, **kwargs)
 
             if not res.success:
-                print "MLE optimization failed ..."
-                print res
+                print("MLE optimization failed ...")
+                print(res)
                 # assert res.success
 
             # x = res.x if res.success else None
@@ -540,7 +540,7 @@ class HawkesEmbedding(HawkesSimple):
                                     x_init=x_init, bounds=bounds, **kwargs)
 
         else:
-            print "MLE %s method not understood!" % method
+            print("MLE %s method not understood!" % method)
 
         mle_params = self.unpack_params(x)
         self.set_mle_params(mle_params)

@@ -398,7 +398,7 @@ class HawkesSimple(PointProcess):
                                     num_params=1+n, **kwargs)
 
         else:
-            print "MLE %s method not understood!" % method
+            print("MLE %s method not understood!" % method)
 
         mle_params = self.unpack_params(x)
         self.set_mle_params(mle_params)
@@ -482,8 +482,8 @@ class HawkesSimple(PointProcess):
         logliks = np.zeros((params.shape[0], num_mc_iters))
         for k in range(num_mc_iters):  # Monte Carlo iteration
             if (k+1) % 20 == 0:
-                print "Computing Monte Carlo estimate: %d / %d ..." % \
-                    (k+1, num_mc_iters)
+                print("Computing Monte Carlo estimate: %d / %d ..." % \
+                    (k+1, num_mc_iters))
 
             # xi = rand.lognormal(mean=pvec, sigma=qvec)  # Including gamma
             xi = rand.gamma(shape=pvec, scale=1/qvec)  # Including gamma
@@ -499,8 +499,8 @@ class HawkesSimple(PointProcess):
             logliks[:, k] = temp
 
         exloglik = np.mean(logliks, axis=1)  # Monte Carlo average
-        print "Estimated expected loglik = %s, std.dev = %s" % \
-            (exloglik, np.std(logliks, axis=1))
+        print("Estimated expected loglik = %s, std.dev = %s" % \
+            (exloglik, np.std(logliks, axis=1)))
 
         # KL-divergence terms
         kl_terms = kl_gamma(pvec, qvec,
@@ -617,7 +617,7 @@ class HawkesSimple(PointProcess):
 
         for i in range(1, num_samples+1):
             if i > 0 and i % 50 == 0:
-                print "M-H sampled %d samples ..." % i
+                print("M-H sampled %d samples ..." % i)
 
             x_old = res[i-1]
             x_new = rand.normal(loc=x_old, scale=.02)  # Proposal
@@ -649,7 +649,7 @@ class HawkesSimple(PointProcess):
         res[0] = rand.uniform(size=(1+self.B))  # Initialize
         for i in range(1, num_samples+1):
             if i > 0 and i % 50 == 0:
-                print "Slice-sampled %d samples ..." % i
+                print("Slice-sampled %d samples ..." % i)
 
             res[i] = multivariate_slice_sample(
                 x_init=res[i-1],
@@ -740,8 +740,8 @@ class HawkesSimple(PointProcess):
                 rate = new_rate
 
         assert num == len(self.node_events[(c, c)])
-        print "Simulated %d events for node %d in [0, %.2f)." % \
-            (num, c, self.T)
+        print("Simulated %d events for node %d in [0, %.2f)." % \
+            (num, c, self.T))
 
         return self.node_events[(c, c)]
 
@@ -813,8 +813,8 @@ class HawkesSimple(PointProcess):
         assert num == len(self.node_events[(u, v)]) + \
             len(self.node_events[(v, u)])
 
-        print "Simulated %d events for (%d, %d) node pair in [0, %.2f)." % \
-            (num, u, v, self.T)
+        print("Simulated %d events for (%d, %d) node pair in [0, %.2f)." % \
+            (num, u, v, self.T))
 
         return self.node_events[(u, v)], self.node_events[(v, u)]
 

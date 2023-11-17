@@ -158,8 +158,8 @@ def roc(fname, methods, num_nodes, num_dims=2, nreps=50):
             pp = pckl_read("%s-%s-N%dD%d-prop0.7.pp.res" %
                            (fname, method, N, num_dims))
         except IOError:
-            print "No such file! %s-%s-N%dD%d-prop0.7.pp.res" % \
-                (fname, method, N, num_dims)
+            print("No such file! %s-%s-N%dD%d-prop0.7.pp.res" % \
+                (fname, method, N, num_dims))
 
             continue
 
@@ -281,11 +281,11 @@ def embedding_roc(num_nodes, events_train, events_test, xvec, method,
             xvec, W_test, method=_method, normed=_normed)
 
         try:
-            print "Type %d: Spectral: %.4f  node2vec: %.4f  %s: %.4f" % \
-                (_type, auc_spec, auc_n2v, method, auc_pp)
+            print("Type %d: Spectral: %.4f  node2vec: %.4f  %s: %.4f" % \
+                (_type, auc_spec, auc_n2v, method, auc_pp))
         except:
-            print "Type %d: Spectral: %.4f  %s: %.4f" % \
-                (_type, auc_spec, method, auc_pp)
+            print("Type %d: Spectral: %.4f  %s: %.4f" % \
+                (_type, auc_spec, method, auc_pp))
 
         # Plot ROC curve
         plt.figure(figsize=(8, 6))
@@ -393,14 +393,14 @@ def pred_acc(fname, methods, num_nodes, num_dims=100, nreps=50, delta=14):
             pp_test = pckl_read("%s-%s-N%dD%d-prop0.7.pp.res" %
                                 (fname, method, num_nodes, num_dims))
         except IOError:
-            print "File does not exist! %s-%s-N%dD%d-prop0.7.pp.res" % \
-                (fname, method, num_nodes, num_dims)
+            print("File does not exist! %s-%s-N%dD%d-prop0.7.pp.res" % \
+                (fname, method, num_nodes, num_dims))
 
         res_m = res[method]
 
         for k, idx in enumerate(idx_list[1:]):
             if k % 20 == 0:
-                print method, k
+                print(method, k)
 
             i0 = idx_list[k-1] if k > 1 else 0
 
@@ -468,7 +468,7 @@ def pred_acc(fname, methods, num_nodes, num_dims=100, nreps=50, delta=14):
             line += " prec@10_mean = %.4f, prec@10_sd = %.4f" % \
                 (np.mean(res_prec), np.std(res_prec))
 
-            print line
+            print(line)
             line += '\n'
             f.write(line)
 
@@ -512,8 +512,8 @@ def temporal_auc(fname, methods, num_nodes, num_dims=2, delta=14, type=None):
                 params = pckl_read("%s-%s-N%dD%d-prop%s.pp.res" %
                                    (fname, method, N, num_dims, auc_props[i]))
             except IOError:
-                print "No such file: %s-%s-N%dD%d-prop%s.pp.res" % \
-                    (fname, method, N, num_dims, auc_props[i])
+                print("No such file: %s-%s-N%dD%d-prop%s.pp.res" % \
+                    (fname, method, N, num_dims, auc_props[i]))
                 continue
 
             adj_prob = pp.predict_probs(t0, delta)
@@ -548,8 +548,8 @@ def temporal_auc(fname, methods, num_nodes, num_dims=2, delta=14, type=None):
             prec5 = sum(adj_true_all[ind[:5]]) / 5.
             prec10 = sum(adj_true_all[ind[:10]]) / 10.
 
-            print "%s T0 = %.4f: auc = %.4f, prec@5 = %.4f, prec@10 = %.4f\n" % \
-                (method, t0, auc_score, prec5, prec10)
+            print("%s T0 = %.4f: auc = %.4f, prec@5 = %.4f, prec@10 = %.4f\n" % \
+                (method, t0, auc_score, prec5, prec10))
 
     f.close()
 
@@ -560,7 +560,7 @@ def temporal_auc(fname, methods, num_nodes, num_dims=2, delta=14, type=None):
 def test_llik(fname, methods, num_nodes, num_dims=2, nreps=50):
     rand.seed(123)
 
-    print "# %s " % fname.upper()
+    print("# %s " % fname.upper())
 
     N, events_train, events_test, T0, T1 = \
         train_test(fname, num_nodes, .7)
@@ -573,8 +573,8 @@ def test_llik(fname, methods, num_nodes, num_dims=2, nreps=50):
             params = pckl_read("%s-%s-N%dD%d-prop0.7.mle.res" %
                                (fname, method, num_nodes, num_dims))
         except IOError:
-            print "No such file! %s-%s-N%dD%d-prop0.7.pp.res" % \
-                (fname, method, N, num_dims)
+            print("No such file! %s-%s-N%dD%d-prop0.7.pp.res" % \
+                (fname, method, N, num_dims))
 
             continue
 
@@ -598,7 +598,7 @@ def test_llik(fname, methods, num_nodes, num_dims=2, nreps=50):
             pp_test = LatentSpace(num_nodes=num_nodes, events=events_test,
                                   end_time=T1, num_dims=num_dims)
 
-        print "%s: %.4f" % (method, pp_test.loglik(*params))
+        print("%s: %.4f" % (method, pp_test.loglik(*params)))
 
     return
 
@@ -647,7 +647,7 @@ def stratify_events_test(fname, num_nodes, train_prop=.7):
     events_test_dict = dict(zip(range(5),
                             [events_test, events0, events1, events2, events3]))
 
-    print "num_events:", [len(events_test_dict[x]) for x in range(5)]
+    print("num_events:", [len(events_test_dict[x]) for x in range(5)])
 
     return N, events_test_dict
 
@@ -702,8 +702,8 @@ def train_test(filename, num_nodes=None, train_prop=.7):
         events = [(V_dict[i], V_dict[j], t)
                   for (i, j, t) in events if i in V and j in V]
 
-    print "Number of nodes: %s" % N
-    print "Total number of events: %s" % len(events)
+    print("Number of nodes: %s" % N)
+    print("Total number of events: %s" % len(events))
 
     events = sorted(events, key=itemgetter(2))  # Sort on times
 
@@ -720,10 +720,10 @@ def train_test(filename, num_nodes=None, train_prop=.7):
 
     events_test = [(u, v, t - T0) for (u, v, t) in events_test]
 
-    print "Training-set proportion: %.4f  T0: %.4f" % \
-        (len(events_train) / float(num_events), T0)
-    print "Test-set proportion: %.4f  T: %.4f" % \
-        (len(events_test) / float(num_events), T)
+    print("Training-set proportion: %.4f  T0: %.4f" % \
+        (len(events_train) / float(num_events), T0))
+    print("Test-set proportion: %.4f  T: %.4f" % \
+        (len(events_test) / float(num_events), T))
 
     return N, events_train, events_test, T0, T - T0
 
@@ -752,8 +752,8 @@ def train_valid_test(filename, num_nodes=None):
         events = [(V_dict[i], V_dict[j], t)
                   for (i, j, t) in events if i in V and j in V]
 
-    print "Number of nodes: %s" % N
-    print "Total number of events: %s" % len(events)
+    print("Number of nodes: %s" % N)
+    print("Total number of events: %s" % len(events))
 
     events = sorted(events, key=itemgetter(2))  # Sort on times
 
@@ -768,12 +768,12 @@ def train_valid_test(filename, num_nodes=None):
 
     events_test = [(u, v, t - T0) for (u, v, t) in events_test]
 
-    print "Training-set proportion: %.4f  T0: %.4f" % \
-        (len(events_train) / float(num_events), T0)
-    print "Validation-set proportion: %.4f  T1: %.4f" % \
-        (len(events_valid) / float(num_events), T1)
-    print "Test-set proportion: %.4f  T: %.4f" % \
-        (len(events_test) / float(num_events), T)
+    print("Training-set proportion: %.4f  T0: %.4f" % \
+        (len(events_train) / float(num_events), T0))
+    print("Validation-set proportion: %.4f  T1: %.4f" % \
+        (len(events_valid) / float(num_events), T1))
+    print("Test-set proportion: %.4f  T: %.4f" % \
+        (len(events_test) / float(num_events), T))
 
     return events_train, events_valid, events_test, T0, T1 - T0, T - T1
 
@@ -813,8 +813,8 @@ def train_events_to_edge_list(filename, num_nodes, train_prop=.7):
     for k, ((i, j), e) in enumerate(cnt.items()):
         edge_list[k] = [i, j, e]
 
-    print "Number of nodes: %s" % N
-    print "Total number of events_train: %s" % len(events_train)
+    print("Number of nodes: %s" % N)
+    print("Total number of events_train: %s" % len(events_train))
 
     with open(filename + '-N%d.edgelist' % N, 'w') as f:
         for i, j, e in edge_list:
@@ -867,7 +867,7 @@ def compute_node2vec(filenames=['enron', 'purdue-email', 'purdue-fb']):
                           --dimensions %d --directed \
                           --output node2vec/emb/%s-D%d.emd" % \
                           (input_fname, num_dims, output_fname, num_dims)
-            print submit_str
+            print(submit_str)
             os.system(submit_str)
 
     return
