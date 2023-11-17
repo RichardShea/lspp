@@ -102,7 +102,7 @@ class PointProcess(object):
             events: list of 3-tuples, [(i, j, t)].
         """
         events = list()
-        for (i, j), times in self.node_events.iteritems():
+        for (i, j), times in self.node_events.items():
             events.extend([(i, j, t) for t in times])
 
         assert_equal(len((flatten(self.node_events.values()))), len(events))
