@@ -500,7 +500,7 @@ class HawkesEmbedding(HawkesSimple):
 
                 return
 
-        bounds = zip([_EPS] * self.num_params, [None] * self.num_params)
+        bounds = list(zip([_EPS] * self.num_params, [None] * self.num_params))
 
         lower_bounds = [_EPS] * (1 + 1)  # self.N * self.N)
         lower_bounds += [None] * (self.N * self.B * self.D)  # xvec
@@ -508,7 +508,7 @@ class HawkesEmbedding(HawkesSimple):
         upper_bounds = [None] * (1 + 1)  # self.N * self.N)
         upper_bounds += [None] * (self.N * self.B * self.D)  # xvec
         upper_bounds += [None] * (self.N * self.D)  # zvec
-        bounds = zip(lower_bounds, upper_bounds)
+        bounds = list(zip(lower_bounds, upper_bounds))
         assert_equal(len(bounds), self.num_params)
 
         gamma_init = rand.uniform()
