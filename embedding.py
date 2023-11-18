@@ -2,6 +2,7 @@
 Various functions for evaluating embeddings (plotting, etc).
 """
 from __future__ import division
+from matplotlib import pyplot as plt
 from matplotlib.colors import LogNorm
 from matplotlib.ticker import FormatStrFormatter
 
