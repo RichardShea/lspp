@@ -334,13 +334,14 @@ def parallel(f, sequence):
 
 def pckl_write(data, filename):
     with open(filename, 'w') as f:
-        cPickle.dump(data, f)
+        # cPickle.dump(data, f)
+        pickle.dump(data, f)
 
     return
 
 
 def pckl_read(filename):
     with open(filename, 'r') as f:
-        data = cPickle.load(f)
-
+        # data = cPickle.load(f)
+        data = pickle.load(f)
     return data
